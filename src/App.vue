@@ -26,7 +26,11 @@ export default {
 </script>
 
 <style>
-@import "@/assets/less/font-awesome.less"
+html,body{
+  width: 100%;
+  height: 100%;
+  margin:0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,9 +38,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-html,body{
-  width: 100%;
-  height: 100%;
-  margin:0;
-}
+@import "@/assets/less/font-awesome.less";
+
 </style>
