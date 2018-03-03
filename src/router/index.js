@@ -6,6 +6,7 @@ import Financial from '@/components/financial/financial'
 import Sets from '@/components/set/set'
 import Working from '@/components/working/working'
 import Notice from '@/components/notice/notice'
+import AddNotice from '@/components/addnotice/addnotice'
 
 Vue.use(Router)
 
@@ -23,6 +24,10 @@ export default new Router({
         path: 'notice',
         name: 'Notice',
         component: Notice
+      }, {
+        path: 'add-notice',
+        name: 'AddNotice',
+        component: AddNotice
       }]
     },
     {

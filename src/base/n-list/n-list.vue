@@ -20,8 +20,9 @@
       </div>
     </div>
     <div class="n-l-text">
-      尊敬的用户，为了给您带来更好的体验，秒杀专区业务将于2017年4月26日22：00-2017年4月27日09:00期间进行系统升级，升级期间秒杀专区入口将暂时下线。升级后可正常充值和查看充值记录，请有需要的用户提前充值或者在系统升级后再充值。给您带来的不便，敬请谅解。感谢您一
-      如既往的支持。
+      <span class="n-l-text-name">科辉公司的订单今天必须办完</span>
+      <span>尊敬的用户，为了给您带来更好的体验，秒杀专区业务将于2017年4月26日22：00-2017年4月27日09:00期间进行系统升级，升级期间秒杀专区入口将暂时下线。升级后可正常充值和查看充值记录，请有需要的用户提前充值或者在系统升级后再充值。给您带来的不便，敬请谅解。感谢您一
+      如既往的支持。</span>
     </div>
     <transition name="fade">
       <div class="record-bg" v-show="showRecordIndex" :style="{borderBottom : showRecordIndex? '1px solid #ddd' : ''}">
@@ -54,6 +55,17 @@
         </div>
       </div>
     </transition>
+    <div class="n-page">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, prev, pager, next, jumper"
+        :total="400">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -61,12 +73,19 @@
 export default {
   data () {
     return {
-      showRecordIndex: false
+      showRecordIndex: false,
+      currentPage4: 4
     }
   },
   methods: {
     showRecord () {
       this.showRecordIndex = !this.showRecordIndex
+    },
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange (val) {
+      console.log(`当前页: ${val}`)
     }
   }
 }
@@ -120,6 +139,13 @@ export default {
       color: #666;
       border-bottom: 1px solid #eee;
       background-color: #fff;
+      span{
+        display: block;
+      }
+      .n-l-text-name{
+        color: #419DEA;
+        margin-bottom: 5px;
+      }
     }
     .fade-enter-active, .fade-leave-active {
       transition: all .5s;
@@ -210,6 +236,10 @@ export default {
           }
         }
       }
+    }
+    .n-page{
+      text-align: center;
+      margin-top: 50px;
     }
   }
 </style>
