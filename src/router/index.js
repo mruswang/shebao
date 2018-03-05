@@ -7,6 +7,7 @@ import Sets from '@/components/set/set'
 import Working from '@/components/working/working'
 import Notice from '@/components/notice/notice'
 import AddNotice from '@/components/addnotice/addnotice'
+import Customer from '@/components/customer/customer'
 
 Vue.use(Router)
 
@@ -28,6 +29,10 @@ export default new Router({
         path: 'add-notice',
         name: 'AddNotice',
         component: AddNotice
+      }, {
+        path: 'customer',
+        name: 'Customer',
+        component: Customer
       }]
     },
     {

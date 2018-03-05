@@ -42,6 +42,7 @@ export default {
 <style scoped lang="less">
 .notice{
   padding-left: 200px;
+  background-color: #f8f8f8;
   /*padding-top: 52px;*/
   .n-nav{
     /*position: fixed;*/

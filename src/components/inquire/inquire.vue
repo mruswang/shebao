@@ -19,8 +19,8 @@
 
 <style scoped lang="less">
 .inquire{
-  width: 100%;
-  height: 100%;
+  /*width: 100%;*/
+  /*height: 100%;*/
   margin-top: 62px;
   background-color: #f8f8f8;
   .i-left{

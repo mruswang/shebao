@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="allgaridbox">
     <div class="n-garid">
       <div class="n-garid-title n-red">
         <span>待处理(4)</span>
@@ -93,69 +93,74 @@ export default {
 </script>
 
 <style scoped lang="less">
-.n-garid{
-  width: 260px;
-  float: left;
-  margin-right: 10px;
-  margin-top: 10px;
-  .n-garid-title{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:8px 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    &.n-red{
-      background-color: #F04844;
-      color: #fff;
-    }
-    &.n-orange{
-      background-color: #FFA847;
-      color: #fff;
-    }
-    &.n-green{
-      background-color: #1ABC9C;
-      color: #fff;
-    }
-    &.n-gray{
-      background-color: #CCCCCC;
-      color: #fff;
-    }
-    span{
-      font-size: 16px;
-    }
-    i{
-      position: relative;
-      top: -3px;
-    }
+.allgaridbox{
+  &:after{
+    display:block;clear:both;content:"";visibility:hidden;height:0
   }
-  .n-garid-list{
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    .n-g-l-lr{
+  .n-garid{
+    width: 260px;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    .n-garid-title{
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding:8px 10px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      &.n-red{
+        background-color: #F04844;
+        color: #fff;
+      }
+      &.n-orange{
+        background-color: #FFA847;
+        color: #fff;
+      }
+      &.n-green{
+        background-color: #1ABC9C;
+        color: #fff;
+      }
+      &.n-gray{
+        background-color: #CCCCCC;
+        color: #fff;
+      }
+      span{
+        font-size: 16px;
+      }
       i{
-        color: #999;
+        position: relative;
+        top: -3px;
       }
     }
-    p{
-      margin-bottom: 5px;
-      margin-top: 5px;
-      font-size: 12px;
-      .g-gray{
-        color: #999;
+    .n-garid-list{
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      .n-g-l-lr{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        i{
+          color: #999;
+        }
       }
-      .g-green{
-        color: #1ABC9C;
-      }
-      .g-red{
-        color: #F04844;
-      }
-      .g-orange{
-        color: #FFA847;
+      p{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-size: 12px;
+        .g-gray{
+          color: #999;
+        }
+        .g-green{
+          color: #1ABC9C;
+        }
+        .g-red{
+          color: #F04844;
+        }
+        .g-orange{
+          color: #FFA847;
+        }
       }
     }
   }
