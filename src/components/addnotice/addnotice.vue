@@ -157,7 +157,8 @@ export default {
         value: '选项5',
         label: '北京烤鸭'
       }],
-      value: ''
+      value: '',
+      fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
     }
   },
   components: {
@@ -205,14 +206,14 @@ export default {
 
 <style scoped lang="less">
 .new-notice{
-  /*width: calc(100% - 200px);*/
-  /*height: 100%;*/
   background-color: #f8f8f8;
-  /*position: fixed;*/
-  /*top: 62px;*/
-  /*left: 200px;*/
-  /*z-index: 30;*/
-  padding-left: 200px;
+  left: 200px;
+  z-index: 10;
+  top: 62px;
+  bottom:0;
+  position:fixed;
+  overflow-y:scroll;
+  width: calc(100% - 200px);
   .notice-caozuo{
     margin-top: 5px;
     background-color: #eee;

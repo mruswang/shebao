@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/inquire'
+      redirect: '/inquire/notice'
     },
     {
       path: '/inquire',
@@ -24,11 +24,12 @@ export default new Router({
       children: [{
         path: 'notice',
         name: 'Notice',
-        component: Notice
-      }, {
-        path: 'add-notice',
-        name: 'AddNotice',
-        component: AddNotice
+        component: Notice,
+        children: [{
+          path: 'add-notice',
+          name: 'AddNotice',
+          component: AddNotice
+        }]
       }, {
         path: 'customer',
         name: 'Customer',

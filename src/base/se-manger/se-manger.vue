@@ -36,7 +36,7 @@ export default {
     background-color: #419DEA;
     color: #fff;
   }
-  .fa{
+  span.fa{
     font-size: 20px;
     line-height: 20px;
     vertical-align: middle;

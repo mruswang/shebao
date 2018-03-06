@@ -33,7 +33,7 @@ export default {
       this.islist = val
     },
     addList () {
-      this.$router.push({path: '/inquire/add-notice'})
+      this.$router.push({path: '/inquire/notice/add-notice'})
     }
   }
 }
@@ -41,8 +41,16 @@ export default {
 
 <style scoped lang="less">
 .notice{
-  padding-left: 200px;
   background-color: #f8f8f8;
+  left: 200px;
+  z-index: 10;
+  top: 62px;
+  bottom:0;
+  position:fixed;
+  overflow-y:scroll;
+  width: calc(100% - 200px);
+  /*padding-left: 200px;*/
+  /*background-color: #f8f8f8;*/
   /*padding-top: 52px;*/
   .n-nav{
     /*position: fixed;*/
