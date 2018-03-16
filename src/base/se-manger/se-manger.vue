@@ -4,7 +4,9 @@
     <el-button size="small" >批量删除</el-button>
     <span @click="selectList(true)" class="fa fa-list-ul" :class="{ blue : islist}"></span>
     <span  @click="selectList(false)" class="fa fa-th-large" :class="{ blue : !islist}"></span>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -46,5 +48,14 @@ export default {
       color: #419DEA;
     }
   }
+  .fade-enter-active, .fade-leave-active {
+    transition: all 1s;
+    transform: translateX(0);
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    /*opacity: 0;*/
+    transform: translateX(1800px);
+  }
 }
+
 </style>

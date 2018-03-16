@@ -2,8 +2,8 @@
   <div class="se-nav">
     <div class="name">{{name}}</div>
     <div>
-      <el-button v-show="back" size="small" class="refresh" icon="fa fa-angle-left">返回</el-button>
-      <el-button size="small" class="refresh" icon="fa fa-refresh">刷新</el-button>
+      <el-button v-show="back" size="small" class="refresh" @click="historyback" icon="fa fa-angle-left">返回</el-button>
+      <el-button size="small" class="refresh" @click="refresh" icon="fa fa-refresh">刷新</el-button>
     </div>
   </div>
 </template>
@@ -18,6 +18,14 @@ export default {
     back: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    refresh () {
+      this.$emit('refresh')
+    },
+    historyback () {
+      this.$emit('historyback')
     }
   }
 }

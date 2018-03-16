@@ -2,8 +2,8 @@
   <div class="customer">
     <div><se-nav :back="back" name="客户档案"></se-nav></div>
     <div class="c-caozuo">
-      <div><el-button class="bg-blue" size="small">批量导入</el-button><el-button class="bg-black" size="small">下载模板</el-button></div>
-      <div><el-button class="bg-gray" size="small">设置导出项</el-button><el-button class="bg-green" size="small" icon="el-icon-download">下载</el-button></div>
+      <div><el-button class="bg-blue" @click="uploadFile()" size="small">批量导入</el-button><el-button class="bg-black" size="small">下载模板</el-button></div>
+      <div><el-button class="bg-gray" size="small">设置导出项</el-button><el-button class="bg-green" size="small" @click="downloadFile(excelData)" icon="el-icon-download">下载</el-button></div>
     </div>
     <div class="search-box">
       <el-input style="width: 150px" size="small" v-model="input" placeholder="请输入内容"></el-input>
@@ -125,8 +125,8 @@
         <input type="file" @change="importFile(this)" id="imFile" style="display: none"
                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
         <a id="downlink"></a>
-        <el-button class="button" @click="uploadFile()">导入</el-button>
-        <el-button class="button" @click="downloadFile(excelData)">导出</el-button>
+        <!--<el-button class="button" @click="uploadFile()">导入</el-button>-->
+        <!--<el-button class="button" @click="downloadFile(excelData)">导出</el-button>-->
         <!--错误信息提示-->
         <el-dialog title="提示" v-model="errorDialog" size="tiny">
           <span>{{errorMsg}}</span>
@@ -135,37 +135,92 @@
           </span>
         </el-dialog>
         <!--展示导入信息-->
-        <el-table :data="excelData" tooltip-effect="dark">
-          <el-table-column label="名称" prop="name" show-overflow-tooltip></el-table-column>
-          <el-table-column label="分量" prop="size" show-overflow-tooltip></el-table-column>
-          <el-table-column label="口味" prop="taste" show-overflow-tooltip></el-table-column>
-          <el-table-column label="单价(元)" prop="price" show-overflow-tooltip></el-table-column>
-          <el-table-column label="剩余(份)" prop="remain" show-overflow-tooltip></el-table-column>
-        </el-table>
         <el-table
           ref="multipleTable"
           :data="excelData"
           tooltip-effect="dark"
-          style="width: 100%"
-          @selection-change="handleSelectionChange">
+          style="width: 100%;font-size: 12px"
+          @selection-change="handleSelectionChange"
+          >
           <el-table-column
             type="selection"
             width="55">
           </el-table-column>
           <el-table-column
-            label="日期"
+            label="序号"
             width="120">
             <template slot-scope="scope">{{ scope.row.date }}</template>
           </el-table-column>
           <el-table-column
             prop="name"
-            label="姓名"
+            label="旺旺号"
+            width="120">
+            <template  slot-scope="scope">
+              <span @click="cellClikc(scope.$index, scope.row)">{{ scope.row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="身份证号"
             width="120">
           </el-table-column>
           <el-table-column
             prop="address"
-            label="地址"
-            show-overflow-tooltip>
+            label="联系方式"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="社保电脑号"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="公积金账号"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="社保状态"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="公积金状态"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="档案备注"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="微信号"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="微信公众号"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="支付生活号"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="深户"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="hei"
+            label="黑名单"
+            width="120">
+            <template  slot-scope="scope">
+              <span :class="scope.row.hei ? 'blue' : 'red'">{{ scope.row.hei ? '是': '否' }}</span>
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -181,6 +236,9 @@
         :total="400">
       </el-pagination>
     </div>
+    <transition name="fadeLeft">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -210,51 +268,34 @@ export default {
       errorMsg: '', // 错误信息内容
       excelData: [
         {
-          name: '红烧鱼', size: '大', taste: '微辣', price: '40', remain: '100'
+          name: '红烧鱼', size: '大', taste: '微辣', price: '40', remain: '100', 'hei': true, id: 1
         },
         {
-          name: '麻辣小龙虾', size: '大', taste: '麻辣', price: '138', remain: '200'
+          name: '麻辣小龙虾', size: '大', taste: '麻辣', price: '138', remain: '200', 'hei': false, id: 1
         },
         {
-          name: '清蒸小龙虾', size: '大', taste: '清淡', price: '138', remain: '200'
+          name: '清蒸小龙虾', size: '大', taste: '清淡', price: '138', remain: '200', id: 1
         },
         {
-          name: '香辣小龙虾', size: '大', taste: '特辣', price: '138', remain: '200'
+          name: '香辣小龙虾', size: '大', taste: '特辣', price: '138', remain: '200', id: 1
         },
         {
-          name: '十三香小龙虾', size: '大', taste: '中辣', price: '138', remain: '108'
+          name: '十三香小龙虾', size: '大', taste: '中辣', price: '138', remain: '108', id: 1
         },
         {
-          name: '蒜蓉小龙虾', size: '大', taste: '中辣', price: '138', remain: '100'
+          name: '蒜蓉小龙虾', size: '大', taste: '中辣', price: '138', remain: '100', id: 1
         },
         {
-          name: '凉拌牛肉', size: '中', taste: '中辣', price: '48', remain: '60'
+          name: '凉拌牛肉', size: '中', taste: '中辣', price: '48', remain: '60', id: 1
         },
         {
-          name: '虾仁寿司', size: '大', taste: '清淡', price: '29', remain: '无限'
+          name: '虾仁寿司', size: '大', taste: '清淡', price: '29', remain: '无限', id: 1
         },
         {
-          name: '海苔寿司', size: '大', taste: '微辣', price: '26', remain: '无限'
-        },
-        {
-          name: '金针菇寿司', size: '大', taste: '清淡', price: '23', remain: '无限'
-        },
-        {
-          name: '泡菜寿司', size: '大', taste: '微辣', price: '24', remain: '无限'
-        },
-        {
-          name: '鳗鱼寿司', size: '大', taste: '清淡', price: '28', remain: '无限'
-        },
-        {
-          name: '肉松寿司', size: '大', taste: '清淡', price: '22', remain: '无限'
-        },
-        {
-          name: '三文鱼寿司', size: '大', taste: '清淡', price: '30', remain: '无限'
-        },
-        {
-          name: '蛋黄寿司', size: '大', taste: '清淡', price: '20', remain: '无限'
+          name: '海苔寿司', size: '大', taste: '微辣', price: '26', remain: '无限', id: 1
         }
-      ]
+      ],
+      multipleSelection: []
     }
   },
   components: {
@@ -265,6 +306,14 @@ export default {
     this.outFile = document.getElementById('downlink')
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+    },
+    cellClikc (index, val) {
+      console.log(index)
+      console.log(val)
+      this.$router.push({path: `/inquire/customer/details/${val.id}`})
+    },
     showTableSearch () {
       this.searchCollaspe = !this.searchCollaspe
     },
@@ -404,7 +453,13 @@ export default {
 <style scoped lang="less">
 .customer{
   background-color: #f8f8f8;
-  padding-left: 200px;
+  left: 200px;
+  z-index: 10;
+  top: 62px;
+  bottom:0;
+  position:fixed;
+  overflow-y:scroll;
+  width: calc(100% - 200px);
   .bg-blue{
     background-color: #419DEA;
     color: #fff;
@@ -493,5 +548,13 @@ export default {
   .c-page{
     text-align: center;
   }
+}
+.fadeLeft-enter-active, .fadeLeft-leave-active {
+  transition: all 1s;
+  transform: translateX(0);
+}
+.fadeLeft-enter, .fadeLeft-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  /*opacity: 0;*/
+  transform: translateX(1800px);
 }
 </style>

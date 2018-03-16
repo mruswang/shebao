@@ -1,9 +1,8 @@
 <template>
-  <div class="refund">
-    <div><se-nav :back="back" name="退款管理"></se-nav></div>
+  <div class="jilu">
     <div class="search-box">
       <div class="block">
-        <p>下单时间</p>
+        <p>操作时间</p>
         <el-date-picker
           v-model="value13"
           type="daterange"
@@ -13,29 +12,24 @@
           :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
       </div>
-      <el-input style="width: 100px" size="small" v-model="input" placeholder="旺旺号"></el-input>
-      <el-input style="width: 100px" size="small" v-model="input" placeholder="退款金额"></el-input>
-      <el-select style="width: 100px" class="select-box" size="small" v-model="value" placeholder="退款状态">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
+      <div>
+        <span>操作</span>
+        <el-select style="width: 100px" class="select-box" size="small" v-model="value" placeholder="退款状态">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <el-input style="width: 100px" size="small" v-model="input" placeholder="账号"></el-input>
+      <el-input style="width: 100px" size="small" v-model="input" placeholder="摘要"></el-input>
       <el-button class="bg-blue" size="small" icon="el-icon-search">搜索</el-button>
-      <span @click="showTableSearch" class="shouqi" v-if="searchCollaspe"><i class="el-icon-arrow-down"></i>展开</span>
-      <span @click="showTableSearch" class="shouqi" v-else><i class="el-icon-arrow-up"></i>收起</span>
-    </div>
-    <div class="show-collaspe" v-show="!searchCollaspe">
-      <el-input style="width: 150px" size="small" v-model="input" placeholder="申请人"></el-input>
-      <el-input style="width: 150px" size="small" v-model="input" placeholder="申请原因"></el-input>
-      <el-input style="width: 150px" size="small" v-model="input" placeholder="审批人"></el-input>
-      <el-input style="width: 150px" size="small" v-model="input" placeholder="审批备注"></el-input>
     </div>
     <div class="table-box">
       <div class="table-box-top">
-        <div><i class="fa fa-list"></i>档案列表</div>
+        <div><i class="fa fa-list"></i>操作日志</div>
         <div class="table-box-top-right">
           <el-button class="bg-gray" size="small">设置导出项</el-button>
           <el-button class="bg-green" size="small" icon="el-icon-download">下载</el-button>
@@ -148,7 +142,6 @@
 </template>
 
 <script>
-import SeNav from '@/base/se-nav/se-nav'
 export default {
   data () {
     return {
@@ -162,8 +155,8 @@ export default {
       }],
       value: '',
       input: '',
-      searchCollaspe: true,
       value13: '',
+      currentPage4: 4,
       excelData: [
         {
           name: '红烧鱼', size: '大', taste: '微辣', price: '40', remain: '100', 'hei': true, id: 1
@@ -193,14 +186,10 @@ export default {
           name: '海苔寿司', size: '大', taste: '微辣', price: '26', remain: '无限', id: 1
         }
       ],
-      multipleSelection: [],
-      currentPage4: 4
+      multipleSelection: []
     }
   },
   methods: {
-    showTableSearch () {
-      this.searchCollaspe = !this.searchCollaspe
-    },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
@@ -211,108 +200,101 @@ export default {
       console.log(`当前页: ${val}`)
     },
     cellClikc (index, val) {
-      console.log(index)
-      console.log(val)
-      this.$router.push({path: `/inquire/refund/details/${val.id}`})
     }
   },
   components: {
-    SeNav
   }
 }
 </script>
 
 <style scoped lang="less">
-.refund{
-  background-color: #f8f8f8;
-  left: 200px;
-  z-index: 10;
-  top: 62px;
-  bottom:0;
-  position:fixed;
-  overflow-y:scroll;
-  width: calc(100% - 200px);
-  .bg-blue{
-    background-color: #419DEA;
-    color: #fff;
-  }
-  .search-box{
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #eeeeee;
-    margin-top: 5px;
-    font-size: 12px;
-    color: #666;
-    position: relative;
-    z-index: 10;
-    .block{
+  .jilu{
+    background-color: #f8f8f8;
+    left: 0;
+    top: 100px;
+    position:absolute;
+    width: 100%;
+    .bg-blue{
+      background-color: #419DEA;
+      color: #fff;
+    }
+    .search-box{
       display: flex;
       align-items: center;
-      p{
-        margin-right: 8px;
-      }
-    }
-    .el-input{
-      margin-right: 10px;
-    }
-    .shouqi{
-      color: #419DEA;
-      cursor: pointer;
-      margin-left: 20px;
-      i{
-        font-size: 18px;
-      }
-    }
-  }
-  .show-collaspe{
-    background-color: #fff;
-    width: calc(100% - 20px);
-    font-size: 12px;
-    color: #666;
-    padding: 5px 10px;
-  }
-  .table-box{
-    margin-top: 5px;
-    .table-box-top{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #eee;
-      padding:5px 10px;
+      padding: 10px;
+      background-color: #eeeeee;
+      margin-top: 5px;
       font-size: 12px;
       color: #666;
-      .table-box-top-right{
+      position: relative;
+      z-index: 10;
+      .block{
         display: flex;
         align-items: center;
-        i{
-          font-size: 20px;
-          color: #999;
+        p{
           margin-right: 8px;
-          margin-top: 5px;
         }
-        .bg-gray{
-          background-color: #ccc;
-          color: #fff;
-        }
-        .bg-green{
-          background-color: #1ABC9C;
-          color: #fff;
-          margin-left: 0;
+      }
+      .el-input{
+        margin-right: 10px;
+      }
+      .shouqi{
+        color: #419DEA;
+        cursor: pointer;
+        margin-left: 20px;
+        i{
+          font-size: 18px;
         }
       }
     }
+    .show-collaspe{
+      background-color: #fff;
+      width: calc(100% - 20px);
+      font-size: 12px;
+      color: #666;
+      padding: 5px 10px;
+    }
+    .table-box{
+      margin-top: 5px;
+      .table-box-top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #eee;
+        padding:5px 10px;
+        font-size: 12px;
+        color: #666;
+        .table-box-top-right{
+          display: flex;
+          align-items: center;
+          i{
+            font-size: 20px;
+            color: #999;
+            margin-right: 8px;
+            margin-top: 5px;
+          }
+          .bg-gray{
+            background-color: #ccc;
+            color: #fff;
+          }
+          .bg-green{
+            background-color: #1ABC9C;
+            color: #fff;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+    .c-page{
+      text-align: center;
+    }
+    .fadeLeft-enter-active, .fadeLeft-leave-active {
+      transition: all 1s;
+      transform: translateX(0);
+    }
+    .fadeLeft-enter, .fadeLeft-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      /*opacity: 0;*/
+      transform: translateX(1800px);
+    }
   }
-  .c-page{
-    text-align: center;
-  }
-  .fadeLeft-enter-active, .fadeLeft-leave-active {
-    transition: all 1s;
-    transform: translateX(0);
-  }
-  .fadeLeft-enter, .fadeLeft-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    /*opacity: 0;*/
-    transform: translateX(1800px);
-  }
-}
 </style>
